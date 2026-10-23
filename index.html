@@ -134,6 +134,7 @@
   /* галерея архетипов */
   .gallery{display:flex;gap:0;overflow-x:auto;scroll-snap-type:x mandatory;margin:26px calc(-1 * var(--gut-r)) 0 0;padding:0 20px 14px 0;-webkit-overflow-scrolling:touch;scrollbar-width:none;border-top:1.5px solid var(--tx)}
   .gallery::-webkit-scrollbar{display:none}
+  @media (min-width:600px){.gallery{display:grid;grid-template-columns:repeat(3,1fr);overflow:visible;margin-right:0;padding:0}.tile{border-bottom:1px solid var(--ln)}.tile:nth-child(3n){border-right:0}}
   .tile{flex:0 0 190px;scroll-snap-align:start;padding:22px 18px 18px;border-right:1px solid var(--ln);display:grid;gap:10px;justify-items:start;align-content:start;grid-template-rows:92px auto 56px auto}
   .tile svg{width:92px;height:92px}
   .tile .n{font:italic 500 30px/1 var(--serif);color:var(--ac)}
@@ -294,7 +295,6 @@
       <span class="lbl" style="margin-top:64px">Семь рабочих архетипов</span>
       <h2 style="margin-top:16px">А кто <i>ты</i>?</h2>
       <div class="gallery" id="gallery"></div>
-      <p class="fine">Листай вбок, чтобы увидеть все семь. Решают твои ответы.</p>
     </div>
   </section>
 
