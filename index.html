@@ -134,7 +134,16 @@
   /* галерея архетипов */
   .gallery{display:flex;gap:0;overflow-x:auto;scroll-snap-type:x mandatory;margin:26px calc(-1 * var(--gut-r)) 0 0;padding:0 20px 14px 0;-webkit-overflow-scrolling:touch;scrollbar-width:none;border-top:1.5px solid var(--tx)}
   .gallery::-webkit-scrollbar{display:none}
-  @media (min-width:600px){.gallery{display:grid;grid-template-columns:repeat(3,1fr);overflow:visible;margin-right:0;padding:0}.tile{border-bottom:1px solid var(--ln)}.tile:nth-child(3n){border-right:0}}
+  .gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));overflow:visible;margin-right:0;padding:0}
+  .tile{border-bottom:1px solid var(--ln);min-width:0}
+  .tile:nth-child(2n){border-right:0}
+  .tile.mystery{background:var(--ink);color:var(--ink-tx);cursor:pointer;border-color:var(--ink);text-align:left;font:inherit}
+  .tile.mystery .n{color:var(--lav)}
+  .tile.mystery h5{color:var(--ink-tx)}
+  .tile.mystery h5 i{color:var(--lav)}
+  .tile.mystery p{color:var(--ink-mu)}
+  .tile .qm{width:92px;height:92px;border-radius:50%;border:1px dashed var(--lav);display:grid;place-items:center;font:italic 500 56px/1 var(--serif);color:var(--mint)}
+  .tile.mystery .go{display:block;margin-top:8px;font:700 13px var(--sans);color:var(--mint)}
   .tile{flex:0 0 190px;scroll-snap-align:start;padding:22px 18px 18px;border-right:1px solid var(--ln);display:grid;gap:10px;justify-items:start;align-content:start;grid-template-rows:92px auto 56px auto}
   .tile svg{width:92px;height:92px}
   .tile .n{font:italic 500 30px/1 var(--serif);color:var(--ac)}
@@ -294,6 +303,7 @@
 
       <span class="lbl" style="margin-top:64px">Семь рабочих архетипов</span>
       <h2 style="margin-top:16px">А кто <i>ты</i>?</h2>
+      <p class="lead" style="margin-top:14px">Вот три из семи. Какой твой, узнаешь в конце теста.</p>
       <div class="gallery" id="gallery"></div>
     </div>
   </section>
@@ -798,12 +808,16 @@
     var _show = show; show = function(id){ _show(id); st.classList.remove("show"); };
   })();
   var gal = $("gallery");
-  Object.keys(ARCH).forEach(function(k,n){
+  Object.keys(ARCH).slice(0,3).forEach(function(k,n){
     var A = ARCH[k], d = document.createElement("div"); d.className = "tile";
     d.innerHTML = emblemSVG(k) + '<span class="n">' + ROMAN[n] + '</span><h5>' + A.n + '</h5><p></p>';
     d.querySelector("p").textContent = A.l;
     gal.appendChild(d);
   });
+  var my = document.createElement("button"); my.type = "button"; my.className = "tile mystery";
+  my.innerHTML = '<span class="qm" aria-hidden="true">?</span><span class="n">IV · VII</span><h5>Ещё четыре <i>архетипа</i></h5><p>Какой из семи твой, покажет тест. <span class="go">Узнать ↗</span></p>';
+  my.onclick = begin;
+  gal.appendChild(my);
   var bl = $("bonusList");
   BONUS.forEach(function(b){
     var d = document.createElement("div"); d.className = "bonus";
